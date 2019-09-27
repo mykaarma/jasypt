@@ -13,7 +13,8 @@ public class EventEncryptor {
 		if (inputValue.length() == 0) return event;
 		String encryptedValue = encryptor.encrypt(inputValue);
 		String encryptedValueWrapped = "ENC(" + encryptedValue + ")";
-		((ScalarEvent) event).setValue(encryptedValueWrapped);
-		return event;
+		Event newEvent = YamlUtil.getScalarEventFromString(encryptedValueWrapped);
+//		((ScalarEvent) event).setValue(encryptedValueWrapped);   // TODO This would've been ideal. Try to improve above line to achieve this.
+		return newEvent;
 	}
 }

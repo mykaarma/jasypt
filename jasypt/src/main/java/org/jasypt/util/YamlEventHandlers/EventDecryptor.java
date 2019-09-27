@@ -15,8 +15,9 @@ public class EventDecryptor {
 			inputValue = unwrap(inputValue);
 		}
 		String decryptedValue = encryptor.decrypt(inputValue);
-		((ScalarEvent) event).setValue(decryptedValue);
-		return event;
+		Event newEvent = YamlUtil.getScalarEventFromString(decryptedValue);
+//		((ScalarEvent) event).setValue(decryptedValue); // TODO This would've been ideal. Try to improve above line to achieve this.
+		return newEvent;
 	}
 	
 	private String unwrap(String val){
