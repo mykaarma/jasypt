@@ -26,7 +26,7 @@ public class EventDecryptionHandler {
 		else return null;
 	}
 	
-	public EventDecryptionHandler(Iterator <Event> eventItr, Properties argumentValues, String location) throws IOException {
+	public EventDecryptionHandler(Iterator <Event> eventItr, Properties argumentValues, String location) throws Exception {
 		this.encryptor = new JasyptEncryptorUtil(argumentValues);
 		this.eventItr = eventItr;
 		this.argumentValues = argumentValues;
@@ -36,18 +36,12 @@ public class EventDecryptionHandler {
 		
 		if (this.eventItr.hasNext()) {
 			currentEvent = this.eventItr.next();
-			Exception exception = new Exception("Sorry! We support events only from a stream.");
-			try {
-				if (currentEvent instanceof StreamStartEvent) {
-					eventHandler();
-				}
-				else {
-					throw exception;
-				}
+			if (currentEvent instanceof StreamStartEvent) {
+				eventHandler();
 			}
-			catch(Exception e) {
+			else {
 				success = false;
-				System.out.println(e);
+				throw new Exception("Sorry! We support events only from a stream.");
 			}
 		}
 	}
@@ -75,7 +69,7 @@ public class EventDecryptionHandler {
 		try {
 			emitter.emit(currentEvent);
 			currentEvent = eventItr.next();
-			while(!(currentEvent instanceof StreamEndEvent)) { //Should I substitue "while" with "if"?
+			while(!(currentEvent instanceof StreamEndEvent)) { //Should I substitute "while" with "if"?
 				eventHandler();
 			}
 			emitter.emit(currentEvent);

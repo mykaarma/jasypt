@@ -26,7 +26,7 @@ public class EventEncryptionHandler {
 		else return null;
 	}
 	
-	public EventEncryptionHandler(Iterator <Event> eventItr, Properties argumentValues, String location) throws IOException {
+	public EventEncryptionHandler(Iterator <Event> eventItr, Properties argumentValues, String location) throws IOException, Exception {
 		this.encryptor = new JasyptEncryptorUtil(argumentValues);
 		this.eventItr = eventItr;
 		this.argumentValues = argumentValues;
@@ -36,18 +36,12 @@ public class EventEncryptionHandler {
 		
 		if (this.eventItr.hasNext()) {
 			currentEvent = this.eventItr.next();
-			Exception exception = new Exception("Sorry! We support events only from a stream.");
-			try {
-				if (currentEvent instanceof StreamStartEvent) {
-					eventHandler();
-				}
-				else {
-					throw exception;
-				}
+			if (currentEvent instanceof StreamStartEvent) {
+				eventHandler();
 			}
-			catch(Exception e) {
+			else {
 				success = false;
-				System.out.println(e);
+				throw new Exception("Sorry! We support events only from a stream.");
 			}
 		}
 	}

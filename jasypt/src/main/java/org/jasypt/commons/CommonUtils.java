@@ -19,6 +19,7 @@
  */
 package org.jasypt.commons;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -288,6 +289,19 @@ public final class CommonUtils {
         
         return result;
         
+    }
+    
+    public static String getRandomAlphaNumeric(int len) {
+
+        char[] ch = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+
+        char[] c = new char[len];
+        SecureRandom random = new SecureRandom();
+        for (int i = 0; i < len; i++) {
+          c[i] = ch[random.nextInt(ch.length)];
+        }
+
+        return new String(c);
     }
     
     

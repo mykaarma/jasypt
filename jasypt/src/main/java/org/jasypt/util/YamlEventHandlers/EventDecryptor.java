@@ -21,18 +21,12 @@ public class EventDecryptor {
 	}
 	
 	private String unwrap(String val){
-		Exception exception = new Exception();
-		try {
-			if(val.length() < 5 || !val.substring(0, 4).equals("ENC(") || !val.substring(val.length() - 1).equals(")")) {
-				throw exception;
-			}
-			String unwrapped = val.substring(4, val.length() - 1);
-			return unwrapped;
-		}
-		catch(Exception e) {
+		if(val.length() < 5 || !val.substring(0, 4).equals("ENC(") || !val.substring(val.length() - 1).equals(")")) {
 			System.out.println("Ill formatted string recieved for decryption: \""+ val + "\"."
 					+ "Please note that the encrypted value must be prefixed with \"ENC(\" and suffixed with \")\"");
 			return val;
 		}
+		String unwrapped = val.substring(4, val.length() - 1);
+		return unwrapped;
 	}
 }

@@ -19,7 +19,6 @@
  */
 package org.jasypt.intf.service;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.jasypt.commons.CommonUtils;
 import org.jasypt.digest.StandardStringDigester;
 import org.jasypt.digest.config.EnvironmentStringDigesterConfig;
@@ -57,10 +56,10 @@ public final class JasyptStatelessService {
         super();
     }
     
-    private String randomString = RandomStringUtils.randomAlphanumeric(12);
-    private boolean displayed = false;
-    private String defaultAlgorithm = "PBEWithHMACSHA256AndAES_256";
-    private String defaultivGeneratorClassName = "org.jasypt.iv.RandomIvGenerator";
+    private final String randomString = CommonUtils.getRandomAlphaNumeric(12);
+    private boolean shouldPasswordBeDisplayed = true;
+    private final String defaultAlgorithm = "PBEWithHMACSHA256AndAES_256";
+    private final String defaultivGeneratorClassName = "org.jasypt.iv.RandomIvGenerator";
 
     /**
      * <p>
@@ -419,8 +418,8 @@ public final class JasyptStatelessService {
         }
         else {
         	config.setPassword(randomString);
-        	if(!displayed) {
-        		displayed = true;
+        	if(shouldPasswordBeDisplayed) {
+        		shouldPasswordBeDisplayed = false;
         		System.out.println("No password provided. The generated password is: " + this.randomString);
         	}
         }
