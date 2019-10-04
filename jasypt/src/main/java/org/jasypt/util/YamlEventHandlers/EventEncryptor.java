@@ -6,6 +6,13 @@ import org.jasypt.intf.cli.JasyptEncryptorUtil;
 import org.yaml.snakeyaml.events.Event;
 import org.yaml.snakeyaml.events.ScalarEvent;
 
+/**
+ * This class'll do encryption of value in a Scalar event.
+ * <b>This class is for internal use only</b>.
+ * 
+ * @author prakash.tiwari
+ *
+ */
 public class EventEncryptor {
 	
 	public Event encryptValueInScalarEvent(Event event, Properties argumentValues, JasyptEncryptorUtil encryptor) {

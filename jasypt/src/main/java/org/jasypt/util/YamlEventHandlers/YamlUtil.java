@@ -6,8 +6,19 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.events.Event;
 import org.yaml.snakeyaml.events.ScalarEvent;
 
+/**
+ * A utility class to keep static methods used multiple times in this package.
+ * 
+ * @author prakash.tiwari
+ *
+ */
 public class YamlUtil {
-	// This class is intended to be used only for encrypted strings 
+	/**
+	 * This method will give a snakeyaml scalar event from a String.
+	 * 
+	 * @param value
+	 * @return
+	 */
 	public static Event getScalarEventFromString(String value) {
         Yaml yaml = new Yaml();
         for(Event e : yaml.parse(new StringReader(value))){
