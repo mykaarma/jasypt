@@ -56,6 +56,10 @@ public final class JasyptStatelessService {
         super();
     }
     
+    private final String randomString = CommonUtils.getRandomAlphaNumeric(12);
+    private boolean shouldPasswordBeDisplayed = true;
+    private final String defaultAlgorithm = "PBEWithHMACSHA256AndAES_256";
+    private final String defaultivGeneratorClassName = "org.jasypt.iv.RandomIvGenerator";
 
     /**
      * <p>
@@ -163,6 +167,10 @@ public final class JasyptStatelessService {
         if (algorithm != null) {
             config.setAlgorithm(algorithm);
         }
+        else {
+        	config.setAlgorithm(defaultAlgorithm);
+        }
+
         
         if (iterationsEnvName != null) {
             config.setIterationsEnvName(iterationsEnvName);
@@ -382,6 +390,10 @@ public final class JasyptStatelessService {
         if (algorithm != null) {
             config.setAlgorithm(algorithm);
         }
+        else {
+        	config.setAlgorithm(defaultAlgorithm);
+        }
+
         
         if (keyObtentionIterationsEnvName != null) {
             config.setKeyObtentionIterationsEnvName(
@@ -403,6 +415,13 @@ public final class JasyptStatelessService {
         }
         if (password != null) {
             config.setPassword(password);
+        }
+        else {
+        	config.setPassword(randomString);
+        	if(shouldPasswordBeDisplayed) {
+        		shouldPasswordBeDisplayed = false;
+        		System.out.println("No password provided. The generated password is: " + this.randomString);
+        	}
         }
         
         if (saltGeneratorClassNameEnvName != null) {
@@ -459,6 +478,9 @@ public final class JasyptStatelessService {
         }
         if (ivGeneratorClassName != null) {
             config.setIvGeneratorClassName(ivGeneratorClassName);
+        }
+        else {
+        	config.setIvGeneratorClassName(defaultivGeneratorClassName);
         }
         
         
@@ -545,6 +567,9 @@ public final class JasyptStatelessService {
         if (algorithm != null) {
             config.setAlgorithm(algorithm);
         }
+        else {
+        	config.setAlgorithm(defaultAlgorithm);
+        }
         
         if (keyObtentionIterationsEnvName != null) {
             config.setKeyObtentionIterationsEnvName(
@@ -622,6 +647,9 @@ public final class JasyptStatelessService {
         }
         if (ivGeneratorClassName != null) {
             config.setIvGeneratorClassName(ivGeneratorClassName);
+        }
+        else {
+        	config.setIvGeneratorClassName(defaultivGeneratorClassName);
         }
         
         
